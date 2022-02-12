@@ -11,12 +11,16 @@ build_property.RootNamespace = Presupuestos
 build_property.ProjectDir = C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/Home/NoEncontrado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb0VuY29udHJhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/Home/Privacy.cshtml]
@@ -33,6 +37,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/TiposCuentas/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb3NDdWVudGFzXENyZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/TiposCuentas/EditarTipoCuenta.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb3NDdWVudGFzXEVkaXRhclRpcG9DdWVudGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/TiposCuentas/EliminarTipoCuenta.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb3NDdWVudGFzXEVsaW1pbmFyVGlwb0N1ZW50YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/TiposCuentas/ListaTiposCuentas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb3NDdWVudGFzXExpc3RhVGlwb3NDdWVudGFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/johns/OneDrive/Documentos/Proyectos C\#/Presupuestos/Views/_ViewImports.cshtml]

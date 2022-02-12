@@ -1,0 +1,15 @@
+﻿@model TipoCuenta
+@{
+    ViewData["Title"] = "EliminarTipoCuenta";
+}
+
+<h3 class="mb-3"> Está seguro que desea eliminar el tipo de cuenta:
+    <strong>@Model.Nombre</strong>?
+</h3>
+
+<form asp-action="EliminarTipoCuenta" asp-controller="TiposCuentas" method="post">
+    <input type="hidden" asp-for="@Model.TipoCuentaId"/>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" asp-action="ListaTiposCuentas">Regresar</a>
+</form>
+
