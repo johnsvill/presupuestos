@@ -56,7 +56,7 @@ namespace Presupuestos.Controllers
 
             await this._repositorioTiposCuentas.CrearTipoCuenta(tipoCuenta);
 
-            return RedirectToAction("ListaTiposCuentas");
+            return RedirectToAction("ListaTiposCuentas");  
         }
 
         [HttpGet]

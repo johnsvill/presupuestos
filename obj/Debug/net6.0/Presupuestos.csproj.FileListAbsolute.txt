@@ -5,7 +5,6 @@ C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Pr
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Presupuestos.deps.json
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Presupuestos.runtimeconfig.json
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Presupuestos.dll
-C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\ref\Presupuestos.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Presupuestos.pdb
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\Presupuestos.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\Presupuestos.AssemblyInfoInputs.cache
@@ -551,3 +550,11 @@ C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Mi
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\Presupuestos.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\Presupuestos.csproj.AssemblyReference.cache
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\refint\Presupuestos.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\obj\Debug\net6.0\scopedcss\Views\Cuentas\CrearCuenta.cshtml.rz.scp.css
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
