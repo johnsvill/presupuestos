@@ -1,0 +1,16 @@
+﻿@model Cuenta
+@{
+    ViewData["Title"] = "Borrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    <strong class="text-danger">Estás seguro de borrar la cuenta: <strong style="color:black">
+        @Model.Nombre
+</strong></strong>
+</h3>
+
+<form asp-controller="Cuentas" asp-action="Borrar" method="post">
+    <input type="hidden" asp-for="@Model.CuentaId"/>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+</form>

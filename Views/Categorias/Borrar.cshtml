@@ -1,0 +1,18 @@
+﻿@model Categoria
+@{
+    ViewData["Title"] = "Borrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Borrar categoria? <strong>@Model.Nombre</strong></h1>
+
+<form asp-action="Borrar" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="@Model.CategoriaId"/>  
+    <button class="btn btn-primary">Enviar</button>
+    <a asp-action="CategoriaUsuario" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

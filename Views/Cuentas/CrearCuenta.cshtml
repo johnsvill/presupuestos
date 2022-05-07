@@ -1,0 +1,44 @@
+﻿@using Presupuestos.ViewModels
+@model CuentaViewModel
+@{
+    ViewData["Title"] = "Crear Cuenta";
+}
+
+<h1>Crear Cuenta</h1>
+
+<form asp-action="CrearCuenta" asp-controller="Cuentas">
+    <div asp-validation-summary="ModelOnly" class="tect-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="@Model.Nombre" class="form-label"></label>
+        <input asp-for="@Model.Nombre" class="form-control"/>
+        <span asp-validation-for="@Model.Nombre" class="tect-danger"></span>
+    </div>
+
+     <div class="mb-3">
+        <label asp-for="@Model.TipoCuentaId" class="form-label"></label>
+       <select asp-for="@Model.TipoCuentaId" asp-items="@Model.TiposCuentas" class="form-select"></select>
+        <span asp-validation-for="@Model.TipoCuentaId" class="tect-danger"></span>
+    </div>
+
+       <div class="mb-3">
+        <label asp-for="@Model.Balance" class="form-label"></label>
+        <input asp-for="@Model.Balance" class="form-control"/>
+        <span asp-validation-for="@Model.Balance" class="tect-danger"></span>
+    </div>
+
+       <div class="mb-3">
+        <label asp-for="@Model.Descripcion" class="form-label"></label>
+        <textarea asp-for="@Model.Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="@Model.Descripcion" class="tect-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    <a class="btn btn-secondary" asp-controller="TiposCuentas" asp-action="ListaTiposCuentas">Cancelar</a>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
