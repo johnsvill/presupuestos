@@ -1,0 +1,13 @@
+﻿@model ReporteTransaccionesDetalladas
+
+@{
+    ViewData["Title"] = "Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";   
+}
+
+<h1>Detalle</h1>
+
+<h3>Movimientos: <strong style="color:blue">@ViewBag.Cuenta</strong></h3>
+
+<partial name="_ReporteTransaccionesDetalladas" model="@Model"></partial>
+

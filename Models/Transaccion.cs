@@ -8,7 +8,8 @@ namespace Presupuestos.Models
 
         public int UsuarioId { get; set; }
 
-        public DateTime FechaTransac { get; set; } = DateTime.Now;
+        [DataType(DataType.DateTime)]
+        public DateTime FechaTransac { get; set; } = DateTime.Parse(DateTime.Now.ToString("g"));
 
         public decimal Monto { get; set; }
 
@@ -21,6 +22,12 @@ namespace Presupuestos.Models
 
         [Display(Name = "Cuenta")]
         [Range(1, maximum: int.MaxValue, ErrorMessage = "Debe seleccionar una cuenta")]
-        public int CuentaId { get; set; }   
+        public int CuentaId { get; set; }
+
+        public string Categoria { get; set; }
+
+        public string Cuenta { get; set; }
+
+        public TipoOperacion TipoOperacionId { get; set; } = TipoOperacion.Gasto;
     }
 }

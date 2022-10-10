@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Reporte diario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_Submenu" model="SubMenuTransac.Diario" />
+
+<div class="mb-3">
+    <a asp-action="Crear" class="btn btn-primary">Crear</a>
+</div>
+
+<partial name="_ReporteTransaccionesDetalladas" model="@Model" />
+

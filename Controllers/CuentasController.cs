@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Presupuestos.Models;
 using Presupuestos.Servicios;
 using Presupuestos.Servicios.Cuentas;
+using Presupuestos.Servicios.Reportes;
+using Presupuestos.Servicios.Transacciones;
 using Presupuestos.Servicios.Usuarios;
 using Presupuestos.ViewModels;
+using System.Reflection;
 
 namespace Presupuestos.Controllers
 {
@@ -14,15 +18,19 @@ namespace Presupuestos.Controllers
         private readonly IServicioUsuarios _servicioUsuarios;
         private readonly IRepositorioCuentas _repositorioCuentas;
         private readonly IMapper _mapper;
+        private readonly ITransacciones _transacciones;
+        private readonly IServicioReportes _servicioReportes;
 
         public CuentasController(IRepositorioTiposCuentas repositorioTiposCuentas,
             IServicioUsuarios servicioUsuarios, IRepositorioCuentas repositorioCuentas,
-            IMapper mapper)
+            IMapper mapper, ITransacciones transacciones, IServicioReportes servicioReportes)
         {
             this._repositorioTiposCuentas = repositorioTiposCuentas;
             this._servicioUsuarios = servicioUsuarios;
             this._repositorioCuentas = repositorioCuentas;
             this._mapper = mapper;
+            this._transacciones = transacciones;
+            this._servicioReportes = servicioReportes;
         }
 
         [HttpGet]
@@ -33,6 +41,25 @@ namespace Presupuestos.Controllers
             var modelo = new CuentaViewModel();
 
             modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+
+            return await Task.Run(() => View(modelo));
+        }
+
+        public async Task<ActionResult> Detalle(int id, int mes, int anio)
+        {
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var cuenta = await this._repositorioCuentas.ObtenerPorId(id, usuarioId);
+
+            if(cuenta is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
+            }
+
+            ViewBag.Cuenta = cuenta.Nombre;
+
+            var modelo = await this._servicioReportes
+                .ObtenerReporteTransaccionesDetalladasPorCuenta(usuarioId,id, mes, anio, ViewBag);
 
             return await Task.Run(() => View(modelo));
         }
