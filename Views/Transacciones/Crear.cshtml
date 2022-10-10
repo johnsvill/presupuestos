@@ -11,7 +11,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
         <label asp-for="FechaTransac" class="form-label"></label>
-        <input type="date" asp-for="FechaTransac" class="form-control" />
+        <input asp-for="FechaTransac" class="form-control" />
         <span asp-validation-for="FechaTransac" class="text-danger"></span>
     </div>
     <div class="mb-3">
@@ -38,7 +38,7 @@
     </div>
     <div class="mb-3">
         <label asp-for="Nota" class="form-label"></label>
-        <textarea type="date" asp-for="Nota" class="form-control"><</textarea>
+        <textarea asp-for="Nota" class="form-control"><</textarea>
         <span asp-validation-for="Nota" class="text-danger"></span>
     </div>
     <button class="btn btn-primary">Guardar</button>
