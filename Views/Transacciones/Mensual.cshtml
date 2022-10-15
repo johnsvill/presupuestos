@@ -1,7 +1,56 @@
-﻿@{
+﻿@model ReporteMensualViewModel
+@{
     ViewData["Title"] = "Reporte Mensual";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int anioAnterior = Model.Anio - 1;
+    int anioPosterior = Model.Anio + 1;
+    var resumenMontos = new ResumenMontosViewModel()
+    {
+        Gastos = Model.Gastos,
+        Ingresos = Model.Ingresos,
+        Total = Model.Total
+    };
 }
 
 <partial name="_Submenu" model="SubMenuTransac.Mensual" />
 
+<h4>
+    Mostrando transacciones de
+    <a asp-route-anio="@anioAnterior" class="btn btn-secondary" asp-action="Mensual">
+        <i class="bi-chevron-left"></i>
+    </a>@Model.Anio
+    <a asp-route-anio="@anioPosterior" class="btn btn-secondary" asp-action="Mensual">
+        <i class="bi-chevron-right"></i>
+    </a>
+</h4>
+
+<partial name="_ResumenMontos" model="@resumenMontos" />
+
+<table class="table" style="font-size: 20px">
+    <thead>
+        <tr style="background-color: lightblue">
+            <th>Mes</th>
+            <th style="text-align: right">Ingresos</th>
+            <th style="text-align: right">Gastos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var transaccionePorMes in Model.TransaccionesPorMes)
+        {
+            <tr>
+               <td>
+                   <a style="text-decoration:none" asp-action="TransaccionesPorUsuario"
+                      asp-route-anio="@Model.Anio" asp-route-mes="@transaccionePorMes.Mes">
+                         @transaccionePorMes.FechaReferencia.ToString("MMMM")
+                   </a>
+               </td>
+                   <td class="activo" style="text-align: right"> 
+                    @(transaccionePorMes.Ingreso != 0 ? transaccionePorMes.Ingreso : null)
+                </td>
+                <td class="pasivo" style="text-align: right"> 
+                    @(transaccionePorMes.Gasto != 0 ? transaccionePorMes.Gasto : null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

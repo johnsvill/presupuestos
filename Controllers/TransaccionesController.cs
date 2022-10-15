@@ -8,6 +8,8 @@ using Presupuestos.Servicios.Transacciones;
 using Presupuestos.Servicios.Usuarios;
 using Presupuestos.ViewModels;
 using System.Reflection;
+using System.Data;
+using ClosedXML.Excel;
 
 namespace Presupuestos.Controllers
 {
@@ -173,6 +175,7 @@ namespace Presupuestos.Controllers
 
             agrupado = agrupado.OrderByDescending(x => x.Semana).ToList();
 
+#pragma warning disable IDE0017 // Simplify object initialization
             var modelo = new ReporteSemanalViewModel();
 
             modelo.TransaccionesPorSemana = agrupado;
@@ -181,9 +184,158 @@ namespace Presupuestos.Controllers
             return await Task.Run(() => View(modelo));
         }
 
-        public async Task<ActionResult> Mensual()
+        public async Task<ActionResult> Mensual(int anio)
         {
-            return await Task.Run(() => View());
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            if (anio == 0)
+            {
+                anio = DateTime.Today.Year;               
+            }
+
+            var transaccionesPorMes = await this._transacciones.ObtenerPorMes(usuarioId, anio);
+
+            var transaccionesAgrupadas = transaccionesPorMes.GroupBy(x => x.Mes)
+                .Select(x => new ResultadosObtenerPorMes()
+                {
+                    Mes = x.Key,
+                    Ingreso = x.Where(x => x.TipoOperacionId == TipoOperacion.Ingreso)
+                    .Select(x => x.Monto).FirstOrDefault(),
+
+                    Gasto = x.Where(x => x.TipoOperacionId == TipoOperacion.Gasto)
+                    .Select(x => x.Monto).FirstOrDefault()
+                }).ToList();
+
+            for (int mes = 1; mes is <= 12; mes++)
+            {
+                var transaccion = transaccionesAgrupadas.FirstOrDefault(x => x.Mes == mes);
+                var fechaReferencia = new DateTime(anio, mes, 1);
+
+                if(transaccion is null)
+                {
+                    transaccionesAgrupadas.Add(new ResultadosObtenerPorMes()
+                    {
+                        Mes = mes,
+                        FechaReferencia = fechaReferencia
+                    });
+                }
+                else
+                {
+                    transaccion.FechaReferencia = fechaReferencia;
+                }
+            }
+
+            transaccionesAgrupadas = transaccionesAgrupadas.OrderByDescending(x => x.Mes).ToList();
+
+            var modelo = new ReporteMensualViewModel()
+            {
+                Anio = anio,
+                TransaccionesPorMes = transaccionesAgrupadas
+            };
+
+            return await Task.Run(() => View(modelo));
+        }
+
+        [HttpGet]
+        public async Task<FileResult> ExportarExcelPorMes(int mes, int anio)
+        {
+            var fechaInicio = new DateTime(anio, mes, 1);
+            var fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
+
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var transacciones = await this._transacciones.ObtenerPorUsuarioId(
+                new ParametroObtenerTransaccionesPorUsuario
+                {
+                    UsuarioId = usuarioId,
+                    FechaInicio = fechaInicio,
+                    FechaFin = fechaFin
+                });
+
+            var nombreArchivo = $"Manejo Presupuesto - {fechaInicio.ToString("MMM yyyy")}.xlsx";
+
+            return GenerarExcel(nombreArchivo, transacciones);
+        }
+
+        private FileResult GenerarExcel(string nombreArchivo,
+            IEnumerable<Transaccion> transacciones)
+        {
+            DataTable dataTable = new DataTable("Transacciones");
+
+            dataTable.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn("Fecha"),
+                new DataColumn("Cuenta"),
+                new DataColumn("Categoria"),
+                new DataColumn("Nota"),
+                new DataColumn("Monto"),
+                new DataColumn("Ingreso/Gasto")
+            }); 
+
+            foreach(var transaccion in transacciones)
+            {
+                dataTable.Rows.Add(transaccion.FechaTransac,
+                    transaccion.Cuenta,
+                    transaccion.Categoria,
+                    transaccion.Nota,
+                    transaccion.Monto,
+                    transaccion.TipoOperacionId);
+            }
+
+            using(XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dataTable);
+
+                using(MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        nombreArchivo);
+                }
+            }
+        }
+
+        [HttpGet]
+        public async Task<FileResult> ExportarExcelPorAnio(int anio)
+        {
+            var fechaInicio = new DateTime(anio, 1, 1);
+            var fechaFin = fechaInicio.AddYears(1).AddDays(-1);
+
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var transacciones = await this._transacciones.ObtenerPorUsuarioId(
+                new ParametroObtenerTransaccionesPorUsuario
+                {
+                    UsuarioId = usuarioId,
+                    FechaInicio = fechaInicio,
+                    FechaFin = fechaFin
+                });
+
+            var nombreArchivo = $"Manejo Presupuesto - {fechaInicio.ToString("yyyy")}.xlsx";
+
+            return GenerarExcel(nombreArchivo, transacciones);
+        }
+
+        [HttpGet]
+        public async Task<FileResult> ExportarExcelTodo()
+        {
+            var fechaInicio = DateTime.Today.AddYears(-100);
+            var fechaFin = DateTime.Today.AddYears(1000);
+
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var transacciones = await this._transacciones.ObtenerPorUsuarioId(
+                new ParametroObtenerTransaccionesPorUsuario
+                {
+                    UsuarioId = usuarioId,
+                    FechaInicio = fechaInicio,
+                    FechaFin = fechaFin
+                });
+
+            var nombreArchivo = $"Manejo Presupuesto - {DateTime.Today.ToString("dd-MM-yyyy")}.xlsx";
+
+            return GenerarExcel(nombreArchivo, transacciones);
         }
 
         public async Task<ActionResult> ExcelReporte()
@@ -194,6 +346,47 @@ namespace Presupuestos.Controllers
         public async Task<ActionResult> Calendario()
         {
             return await Task.Run(() => View());
+        }
+
+        [HttpGet, ActionName("ObtenerTransaccionesCalendario")]
+        public async Task<JsonResult> ObtenerTransaccionesCalendario(DateTime start, 
+            DateTime end)
+        {
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var transacciones = await this._transacciones.ObtenerPorUsuarioId(
+                new ParametroObtenerTransaccionesPorUsuario
+                {
+                    UsuarioId = usuarioId,
+                    FechaInicio = start,
+                    FechaFin = end
+                });
+
+            var eventosCalendario = transacciones.Select(transaccion => new EventoCalendario()
+            {
+                Title = transaccion.Monto.ToString("N"),
+                Start = transaccion.FechaTransac.ToString("yyyy-MM-dd"),
+                End = transaccion.FechaTransac.ToString("yyyy-MM-dd"),
+                Color = (transaccion.TipoOperacionId == TipoOperacion.Gasto) ? "Red" : "Blue" 
+            });
+
+            return Json(eventosCalendario);
+        }
+
+        [HttpGet, ActionName("ObtenerTransaccionesPorFecha")]
+        public async Task<JsonResult> ObtenerTransaccionesPorFecha(DateTime fecha)
+        {
+            var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
+
+            var transacciones = await this._transacciones.ObtenerPorUsuarioId(
+                new ParametroObtenerTransaccionesPorUsuario
+                {
+                    UsuarioId = usuarioId,
+                    FechaInicio = fecha,
+                    FechaFin = fecha
+                });
+
+            return Json(transacciones);
         }
     }
 }
