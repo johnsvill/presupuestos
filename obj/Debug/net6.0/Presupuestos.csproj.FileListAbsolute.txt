@@ -298,7 +298,10 @@ C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Au
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\ClosedXML.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Dapper.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\ExcelNumberFormat.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Humanizer.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\MessagePack.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\MessagePack.Annotations.dll
@@ -365,6 +368,7 @@ C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\Sy
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.IO.Packaging.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.Runtime.Caching.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\johns\OneDrive\Documentos\Proyectos C#\Presupuestos\bin\Debug\net6.0\System.Security.Permissions.dll

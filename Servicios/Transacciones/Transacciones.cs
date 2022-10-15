@@ -53,7 +53,7 @@ namespace Presupuestos.Servicios.Transacciones
 
             return await connection.QueryAsync<Transaccion>(@$"
                         SELECT T.IdTransac, T.Monto, T.FechaTransaccion AS FechaTransac, 
-                        c.Nombre AS Categoria, c1.Nombre AS Cuenta, c.TipoOperacionId                        
+                        c.Nombre AS Categoria, c1.Nombre AS Cuenta, c.TipoOperacionId, T.Nota                        
                         FROM Transacciones t
                         INNER JOIN Categorias c ON c.CategoriaId = T.CategoriaId
                         INNER JOIN Cuentas c1 ON c1.CuentaId = T.CuentaId
@@ -77,6 +77,19 @@ namespace Presupuestos.Servicios.Transacciones
                     AND t.UserId = @UsuarioId
                     GROUP BY DATEDIFF(d, @FechaInicio, t.FechaTransaccion) / 7,
                     cat.TipoOperacionId", modelo);
+        }
+
+        public async Task<IEnumerable<ResultadosObtenerPorMes>> ObtenerPorMes(int usuarioId, int anio)
+        {
+            using var connection = new SqlConnection(this._connectionString);
+
+            return await connection.QueryAsync<ResultadosObtenerPorMes>(@$"
+                SELECT MONTH(T.FechaTransaccion) AS Mes,
+                SUM(t.Monto) AS Monto, cat.TipoOperacionId
+                FROM Transacciones t
+                INNER JOIN Categorias cat ON cat.CategoriaId = t.CategoriaId
+                WHERE t.UserId = @usuarioId AND YEAR(T.FechaTransaccion) = @anio
+                GROUP BY MONTH(T.FechaTransaccion), cat.TipoOperacionId", new {usuarioId, anio});
         }
     }
 }
