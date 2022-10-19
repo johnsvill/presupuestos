@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using Presupuestos.Models;
 using Presupuestos.Servicios;
 using Presupuestos.Servicios.Categorias;
 using Presupuestos.Servicios.Cuentas;
@@ -16,6 +18,24 @@ builder.Services.AddTransient<IRepositorioCuentas, RepositorioCuentas>();
 builder.Services.AddTransient<ICategorias, Categorias>();
 builder.Services.AddTransient<ITransacciones, Transacciones>();
 builder.Services.AddTransient<IServicioReportes, ServicioReportes>();
+builder.Services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
+
+builder.Services.AddTransient<SignInManager<Usuario>>();
+builder.Services.AddTransient<IUserStore<Usuario>, UsuarioStore>();
+builder.Services.AddIdentityCore<Usuario>(opciones =>
+{
+    opciones.Password.RequireDigit = false;
+    opciones.Password.RequireLowercase = false;
+    opciones.Password.RequireUppercase = false;
+    opciones.Password.RequireNonAlphanumeric = false;
+});
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
+}).AddCookie(IdentityConstants.ApplicationScheme);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -35,6 +55,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

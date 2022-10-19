@@ -6,7 +6,7 @@ namespace Presupuestos.Servicios
     {
         Task CrearTipoCuenta(TipoCuenta tipoCuenta);
         Task EliminarTipoCuenta(int TipoCuentaId);
-        Task<bool> Existe(string nombre, int usuarioId);
+        Task<bool> Existe(string nombre, int usuarioId, int id = 0);
         Task<TipoCuenta> ObtenerPorId(int id, int usuarioId);
         Task<IEnumerable<TipoCuenta>> ObtenerTiposCuentas(int usuarioId);
         Task OrdenarTiposCuentas(IEnumerable<TipoCuenta> tipoCuentasOrdenados);

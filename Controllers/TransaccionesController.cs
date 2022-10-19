@@ -96,7 +96,14 @@ namespace Presupuestos.Controllers
         {
             var categorias = await this._categorias.Obtener(usuarioId, tipoOperacion);
 
-            return categorias.Select(x => new SelectListItem(x.Nombre, x.CategoriaId.ToString()));
+            var resultado = categorias
+                .Select(x => new SelectListItem(x.Nombre, x.CategoriaId.ToString())).ToList();
+
+            var opcionPorDefecto = new SelectListItem("-- Seleccione algo --", "0", true);
+
+            resultado.Insert(0, opcionPorDefecto);
+
+            return resultado;
         }
 
         public async Task<ActionResult> ObtenerCategorias([FromBody] TipoOperacion tipoOperacion)
@@ -190,7 +197,7 @@ namespace Presupuestos.Controllers
 
             if (anio == 0)
             {
-                anio = DateTime.Today.Year;               
+                anio = DateTime.Today.Year;
             }
 
             var transaccionesPorMes = await this._transacciones.ObtenerPorMes(usuarioId, anio);
