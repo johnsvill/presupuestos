@@ -95,12 +95,12 @@ namespace Presupuestos.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> VerificarExisteTipocuenta(string nombre)
+        public async Task<ActionResult> VerificarExisteTipocuenta(string nombre, int id)
         {
             var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
 
             var yaExisteTipoCuenta = await this._repositorioTiposCuentas
-                                                 .Existe(nombre, usuarioId);
+                                                 .Existe(nombre, usuarioId, id);
 
             if (yaExisteTipoCuenta)
             {

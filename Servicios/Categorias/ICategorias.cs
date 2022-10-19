@@ -6,9 +6,10 @@ namespace Presupuestos.Servicios.Categorias
     {
         Task Actualizar(Categoria categoria);
         Task Borrar(int categoriaId);
-        Task Crear(Categoria categoria);
-        Task<IEnumerable<Categoria>> Obtener(int usuarioId);
+        Task<int> Contar(int usuarioId);
+        Task Crear(Categoria categoria);        
         Task<IEnumerable<Categoria>> Obtener(int usuarioId, TipoOperacion tipoOperacion);
+        Task<IEnumerable<Categoria>> Obtener(int usuarioId, PaginacionViewModel paginacion);
         Task<Categoria> ObtenerPorId(int categoriaId, int usuarioId);
     }
 }

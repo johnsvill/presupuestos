@@ -40,13 +40,25 @@ namespace Presupuestos.Controllers
             return RedirectToAction("CategoriaUsuario");
         }
 
-        public async Task<ActionResult> CategoriaUsuario()
+        public async Task<ActionResult> CategoriaUsuario(PaginacionViewModel paginacion)
         {
             var usuarioId = this._servicioUsuarios.ObtenerUsuarioId();
 
-            var categorias = await this._servicioCategorias.Obtener(usuarioId);
+            var categorias = await this._servicioCategorias.Obtener(usuarioId, paginacion);
 
-            return await Task.Run(() => View(categorias));  
+            var totalCategorias = await this._servicioCategorias.Contar(usuarioId);
+
+            var respuestaVm = new PaginacionRespuesta<Categoria>
+            {
+                Elementos = categorias,
+                Pagina = paginacion.Pagina,
+                RecordsPorPagina = paginacion.RecordsPorPagina,
+                CantidadTotalRecords = totalCategorias,
+                //BaseUrl = "/categorias/CategoriaUsuario"
+                BaseUrl = Url.Action()
+            };
+
+            return await Task.Run(() => View(respuestaVm));
         }
 
         public async Task<ActionResult> Editar(int id)
